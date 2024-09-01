@@ -1,0 +1,184 @@
+body {
+    font-family: 'Orbitron', sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/Space_background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    font-family: 'Orbitron', sans-serif; 
+    padding: 20px;
+    font-size: 35px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.satellite-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+table {
+    width: 100%;
+}
+
+thead {
+    background-color: #333;
+    color: #eee;
+}
+
+tbody {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+}
+
+tr {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+td {
+    flex: 0 0 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+td img {
+    width: 100%;
+    height: auto;
+    max-width: 200px; 
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.footer {
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(44, 43, 43, 0.3); 
+    color: white;
+    text-align: center;
+    font-family:'Orbitron', sans-serif ;
+}
+.blue-label {
+    color: rgb(131, 131, 247);
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 300vh;
+    position: absolute;
+    bottom: 50px; 
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.rounded-button-container {
+    text-align: center;
+}
+
+.rounded-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 20px;
+    background-color: #234edd;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.rounded-button:hover {
+    background-color: white;
+    color: #234edd; 
+    transform: scale(1.05); 
+}
+
+.rounded-button-container {
+    text-align: center;
+
+}
+summary {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: #234edd;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    left: 30%;
+    top: 80%;
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+}
+
+summary:hover {
+    background-color: white;
+    color: #234edd; 
+    transform: scale(1.05); 
+}
+
+.navbar {
+    background-color: transparent !important;
+    border: none; /* Remove border */
+}
+
+.navbar-nav .nav-link {
+    font-size: 24px;
+    color: white !important;
+    padding: 10px 15px; /* Add padding to the links */
+}
+
+.navbar-toggler-icon {
+    background-color: white; /* Change color of the toggler icon */
+}
+
+.navbar-nav .nav-link {
+    margin-right: 40px; 
+}
+
+/* Increase size of header image and text */
+header {
+    text-align: center;
+    padding: 70px 0;
+}
+
+header h1 {
+    font-size: 48px;
+    color: white; /* Set header text color to white */
+}
+
+header p {
+    font-size: 24px;
+    color: white; /* Set paragraph text color to white */
+    cursor: pointer;
+}
+.logo-header {
+    position: absolute;
+    top: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center; /* To center the image horizontally */
+}

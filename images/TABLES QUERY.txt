@@ -1,0 +1,48 @@
+CREATE TABLE Launch_Details (
+  Launch_id INT PRIMARY KEY,
+  Operator_Name VARCHAR(255) NOT NULL,
+  Launch_Site VARCHAR(255) NOT NULL,
+  Launch_Vehicle VARCHAR(255) NOT NULL,
+  Launch_Date DATE NOT NULL,
+  Country VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Satellite (
+  Satellite_id INT PRIMARY KEY,
+  Name VARCHAR(255) NOT NULL,
+  Launch_Date DATE,
+  Country_of_Origin VARCHAR(255),
+  Payload VARCHAR(255),
+  Type VARCHAR(255),
+  Status VARCHAR(255) NOT NULL,
+  Image BLOB,
+  FOREIGN KEY (Launch_id) REFERENCES Launch_Details(Launch_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Orbit_Details (
+  Satellite_id INT,
+  Semi_Major_Axis DECIMAL(10, 2) NOT NULL,
+  Orbital_Period DECIMAL(10, 2) NOT NULL,
+  Apogee DECIMAL(10, 2) NOT NULL,
+  Inclination DECIMAL(10, 2) NOT NULL,
+  Prigee DECIMAL(10, 2) NOT NULL,
+  Eccentricity DECIMAL(10, 2) NOT NULL,
+  FOREIGN KEY (Satellite_id) REFERENCES Satellite(Satellite_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Observer (
+  Observer_id INT PRIMARY KEY,
+  Satellite_id INT,
+  Observer_Name VARCHAR(255) NOT NULL,
+  Observer_Location VARCHAR(255) NOT NULL,
+  Observation_Date DATE NOT NULL,
+  FOREIGN KEY (Satellite_id) REFERENCES Satellite(Satellite_id)
+);
+
+CREATE TABLE Obs_Coordinates (
+  Observer_id INT,
+  Country VARCHAR(255) NOT NULL,
+  Latitude DECIMAL(9, 6) NOT NULL,
+  Longitude DECIMAL(9, 6) NOT NULL,
+  FOREIGN KEY (Observer_id) REFERENCES Observer(Observer_id) ON DELETE CASCADE
+);

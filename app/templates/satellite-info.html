@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@400;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/carousel.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/AStro.png" width="120" height="120" class="d-inline-block align-top" alt="logo" onclick="window.location.href='/'">   
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample09">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='/'">Home</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/potd'">Pitcure of the day</a>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='/login/'">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location.href='/about_us'">About us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <h1><u>Satellite Information</u></h1>
+    </header>
+
+    <div class="overlay"></div>
+    <div class="carousel">
+        <div class="list">
+            {% for satellite in satellites %}
+                <div class="item {% if loop.first %}visible{% endif %}" data-satellite-id="{{ satellite.Satellite_id }}">
+                    <img src="/images/image {{loop.index}}.png" alt="Satellite Image">
+                    <div class="content">
+                        <div class="topic">{{ satellite.Name }}</div>
+                        <div class="author">{{ satellite.Type }}</div>
+                        <div class="des">
+                            <strong>Country of Origin:</strong> {{ satellite.Country_of_Origin }}<br>
+                            <strong>Payload:</strong> {{ satellite.Payload }}<br>
+                            <strong>Type:</strong> {{ satellite.Type }}<br>
+                            <strong>Status:</strong> {{ satellite.Status }}<br>
+                        </div>
+                        <div class="satellite-positions">
+                            <details>
+                                <summary>Satellite Current Positions</summary>
+                                <div class="positions">
+                                    {% if satellite.positions %}
+                                        <ul>
+                                            {% for position in satellite.positions %}
+                                                <li>Latitude: {{ position.satlatitude }}, Longitude: {{ position.satlongitude }}, Azimuth: {{ position.azimuth }}, Elevation: {{ position.elevation }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        No position data available
+                                    {% endif %}
+                                </div>
+                            </details>
+                        </div>
+                        <div class="details-section" data-satellite-id="{{ satellite.Satellite_id }}">
+                            <div class="launch-details">
+                                <details>
+                                    <summary>Launch Details</summary>
+                                    <p> {% if satellite.launch_details %}
+                                    <strong>Launch Operator:</strong> {{ satellite.launch_details.Operator_Name }}<br>
+                                    <strong>Launch Date:</strong> {{ satellite.launch_details.Launch_Date }}<br>
+                                    <strong>Launch Location:</strong> {{ satellite.launch_details.Launch_Site }}<br>
+                                    <strong>Country:</strong> {{ satellite.launch_details.Country }}<br>
+                                    <strong>Launch Vehicle:</strong> {{ satellite.launch_details.Launch_Vehicle }}<br>    
+                                {% else %}
+                                    No Launch Details available
+                                {% endif %}</p>
+                                    </details>
+                            </div>
+                            <div class="orbit-details">
+                                <details>
+                                    <summary>Orbit Details</summary>
+                                    <p> {% if satellite.orbit %}
+                                        <strong>Semi-Major Axis:</strong> {{ satellite.orbit.Semi_Major_Axis }}<br>
+                                        <strong>Orbital Period:</strong> {{ satellite.orbit.Orbital_Period }}<br>
+                                        <strong>Apogee:</strong> {{ satellite.orbit.Apogee }}<br>
+                                        <strong>Inclination:</strong> {{ satellite.orbit.Inclination }}<br>
+                                        <strong>Perigee:</strong> {{ satellite.orbit.Prigee }}<br>
+                                        <strong>Eccentricity:</strong> {{ satellite.orbit.Eccentricity }}<br>
+                                    {% else %}
+                                        No Orbit Details available
+                                    {% endif %}</p>
+                                </details>
+                            </div>
+                            <div class="observer-details">
+                                <details><summary>Observer Details</summary>
+                                    <p> {% if satellite.observers %}
+                                        {% for observer in satellite.observers %}
+                                            <strong>Observer Name:</strong> {{ observer.Observer_Name }}<br>
+                                            <strong>Observer Location:</strong> {{ observer.Observer_Location }}<br>
+                                            <strong>Observation Date:</strong> {{ observer.Observation_Date }}<br>
+                                            <hr>
+                                        {% endfor %}
+                                    {% else %}
+                                        No Observer Details available
+                                    {% endif %}
+                                    </p>
+                                </details>
+                            </div>
+                            <div class="observer-coordinates">
+                                <details><summary>Observer Coordinates</summary>
+                                    <p>
+                                        {% if satellite.coordinates %}
+                                            {% for coord in satellite.coordinates %}
+                                                <strong>Observer Latitude:</strong> {{ coord.Latitude }}<br>
+                                                <strong>Observer Longitude:</strong> {{ coord.Longitude }}<br>
+                                                <hr>
+                                            {% endfor %}
+                                        {% else %}
+                                            No Observer Coordinates available
+                                        {% endif %}
+                                    </p>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="arrows">
+            <button id="prev">Previous</button>
+            <button id="next">Next</button>
+        </div>
+        <div class="thumbnail">
+            {% for satellite in satellites %}
+                <div class="item {% if loop.first%}visible{% endif %}" data-satellite-id="{{ satellite.Satellite_id }}">
+                    <div class="content">
+                        <div class ="des">UP NEXT<br>{{ satellite.Name }}<br>{{ satellite.Type }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='Js/app.js') }}"></script>
+    <script>
+        window.onload = function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

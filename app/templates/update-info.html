@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles3.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="/images/AStro.png" width="90" height="90" class="d-inline-block align-top" alt="logo" onclick="window.location.href='/'">   
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/'">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/satellite-info/'">Satellite Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/potd'">Pitcure of the day</a>
+                </li>   
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/about_us'">About us</a>
+                </li>                
+            </ul>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+
+    <div class="flex-shrink-0 p-3" style="width: 300px;">
+        <a href="#" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+            <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-5 ">Satellites List</span>
+        </a>
+        <ul class="list-unstyled">
+            {% for satellite in satellites %}
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed toggle-satellite" data-satellite-id="{{ satellite.Satellite_id }}">
+                    -> {{ satellite.Name }}
+                </button>
+                <div class="collapse" id="satellite-{{ satellite.Satellite_id }}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><strong>Country of Origin:</strong> {{ satellite.Country_of_Origin }}</li>
+                        <li><strong>Payload:</strong> {{ satellite.Payload }}</li>
+                        <li><strong>Type:</strong> {{ satellite.Type }}</li>
+                        <li><strong>Status:</strong> {{ satellite.Status }}</li>
+                        <li><strong>Launch Operator:</strong> {% if satellite.launch_details %}{{ satellite.launch_details.Operator_Name }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Launch Date:</strong> {% if satellite.launch_details %}{{ satellite.launch_details.Launch_Date }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Launch Location:</strong> {% if satellite.launch_details %}{{ satellite.launch_details.Launch_Site }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Country:</strong> {% if satellite.launch_details %}{{ satellite.launch_details.Country }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Launch Vehicle:</strong> {% if satellite.launch_details %}{{ satellite.launch_details.Launch_Vehicle }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Semi-Major Axis:</strong> {% if satellite.orbit %}{{ satellite.orbit.Semi_Major_Axis }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Orbital Period:</strong> {% if satellite.orbit %}{{ satellite.orbit.Orbital_Period }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Apogee:</strong> {% if satellite.orbit %}{{ satellite.orbit.Apogee }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Inclination:</strong> {% if satellite.orbit %}{{ satellite.orbit.Inclination }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Perigee:</strong> {% if satellite.orbit %}{{ satellite.orbit.Prigee }}{% else %}N/A{% endif %}</li>
+                        <li><strong>Eccentricity:</strong> {% if satellite.orbit %}{{ satellite.orbit.Eccentricity }}{% else %}N/A{% endif %}</li>
+                        {% if satellite.observers %}
+                            {% for observer in satellite.observers %}
+                                <li><strong>Observer Name:</strong> {{ observer.Observer_Name }}</li>
+                                <li><strong>Observer Location:</strong> {{ observer.Observer_Location }}</li>
+                                <li><strong>Observation Date:</strong> {{ observer.Observation_Date }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No Observer Details available</li>
+                        {% endif %}
+                        {% if satellite.coordinates %}
+                            {% for coord in satellite.coordinates %}
+                                <li><strong>Observer Latitude:</strong> {{ coord.Latitude }}</li>
+                                <li><strong>Observer Longitude:</strong> {{ coord.Longitude }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No Observer Coordinates available</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>  
+    <section class="add" class="form-section" id="launch-details">
+    <details>
+    
+            <summary>Add Launch Details</summary>
+            <form action="{{ url_for('routes.add_launch_details') }}" method="POST" class="add-launch-details">
+                <input type="text" name="Launch_id" placeholder="Launch ID" required>
+                <input type="text" name="Operator_Name" placeholder="Operator Name" required>
+                <input type="text" name="Launch_Site" placeholder="Launch Site" required>
+                <input type="text" name="Launch_Vehicle" placeholder="Launch Vehicle" required>
+                <input type="date" name="Launch_Date" placeholder="Launch Date" required>
+                <input type="text" name="Country" placeholder="Country" required>
+                <input type="submit" value="Add Launch Details">
+            </form>
+        </details>
+    </section>  
+
+    <section class="add" class="form-section" id="satellite">
+        <details>
+            <summary>Add Satellite</summary>
+            <form action="{{ url_for('routes.add_satellite') }}" method="POST" class="add-satellite">
+                <input type="text" name="Name" placeholder="Name" required>
+                <input type="text" name="Launch_id" placeholder="Launch ID" required>
+                <input type="date" name="Launch_Date" placeholder="Launch Date">
+                <input type="text" name="Country_of_Origin" placeholder="Country of Origin">
+                <input type="text" name="Payload" placeholder="Payload">
+                <input type="text" name="Type" placeholder="Type">
+                <input type="text" name="Status" placeholder="Status" required>
+                <input type="submit" value="Add Satellite">
+            </form>
+        </details>
+    </section>
+
+    <section class="add" class="form-section" id="orbit-details">
+        <details>
+           <summary>Add Orbit Details</summary>
+            <form action="{{ url_for('routes.add_orbit_details') }}" method="POST" class="add-orbit-details">
+                <input type="text" name="Satellite_id" placeholder="Satellite ID" required>
+                <input type="number" name="Semi_Major_Axis" placeholder="Semi Major Axis" required>
+                <input type="number" name="Orbital_Period" placeholder="Orbital Period" required>
+                <input type="number" name="Apogee" placeholder="Apogee" required>
+                <input type="number" name="Inclination" placeholder="Inclination" required>
+                <input type="number" name="Prigee" placeholder="Prigee" required>
+                <input type="number" name="Eccentricity" placeholder="Eccentricity" required>
+                <input type="submit" value="Add Orbit Details">
+            </form>
+        </details>
+    </section>
+
+    <section class="add" class="form-section" id="observer">
+        <details>
+            <summary>Delete Satellite</summary>
+            <form action="{{ url_for('routes.add_observer') }}" method="POST" class="add-observer">
+                <input type="text" name="Observer_id" placeholder="Satellite Name" required>
+                <input type="submit" value="Delete Satellite">
+            </form>
+        </details>
+    </section>
+
+<section class="update" class="form-section" id="update-satellite">
+    <details>
+       <summary>Update Satellite</summary>
+        <form action="{{ url_for('routes.update_satellite') }}" method="POST" class="update-satellite">
+            <input type="text" name="satellite_name" placeholder="Satellite Name to Update" required>
+            <!-- New Satellite Details -->
+            <input type="text" name="name" placeholder="New Name">
+            <input type="date" name="launch_date" placeholder="New Launch Date">
+            <input type="text" name="country_of_origin" placeholder="New Country of Origin">
+            <input type="text" name="payload" placeholder="New Payload">
+            <input type="text" name="type" placeholder="New Type">
+            <input type="text" name="status" placeholder="New Status">
+            <!-- New Launch Details -->
+            <input type="text" name="nord_id" placeholder="New Nord ID">
+            <input type="text" name="operator_name" placeholder="New Operator Name">
+            <input type="text" name="launch_site" placeholder="New Launch Site">
+            <input type="text" name="launch_vehicle" placeholder="New Launch Vehicle">
+            <input type="date" name="new_launch_date" placeholder="New Launch Date">
+            <input type="text" name="new_launch_country" placeholder="New Launch Country">
+            <!-- New Orbit Details -->
+            <input type="number" name="new_semi_major_axis" placeholder="New Semi Major Axis">
+            <input type="number" name="new_orbital_period" placeholder="New Orbital Period">
+            <input type="number" name="new_apogee" placeholder="New Apogee">
+            <input type="number" name="new_inclination" placeholder="New Inclination">
+            <input type="number" name="new_prigee" placeholder="New Prigee">
+            <input type="number" name="new_eccentricity" placeholder="New Eccentricity">
+            <!-- New Observer Details -->
+            <input type="text" name="observer_name" placeholder="New Observer Name">
+            <input type="text" name="observer_location" placeholder="New Observer Location">
+            <input type="date" name="observation_date" placeholder="New Observation Date">
+            <input type="text" name="observer_country" placeholder="New Observer Country">
+            <input type="text" name="observer_latitude" placeholder="New Observer Latitude">
+            <input type="text" name="observer_longitude" placeholder="New Observer Longitude">
+            <input type="submit" value="Update Satellite">
+        </form>
+    </details>
+</section>
+<section class="add" class="form-section" id="delete-satellite">
+    <details>
+        <summary>Delete Satellite</summary>
+        <form action="{{ url_for('routes.delete_satellite', satellite_name=satellite_name) }}" method="POST" class="delete-satellite-form">
+            <input type="text" name="satellite_name" placeholder="Enter Satellite Name" required>
+            <input type="submit" value="Delete">
+        </form>
+    </details>
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButtons = document.querySelectorAll('.toggle-satellite');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const satelliteId = this.getAttribute('data-satellite-id');
+                    const satelliteDetails = document.getElementById(`satellite-${satelliteId}`);
+                    satelliteDetails.classList.toggle('show');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

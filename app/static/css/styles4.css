@@ -1,0 +1,74 @@
+
+        h1{
+            font-size: 100px;
+            font-family: 'Futura', 'Century Gothic', Arial, sans-serif;
+        }
+        .container {
+            margin: auto;
+            text-align: center;
+        }
+        .circle-img {
+            border-radius: 50%;
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        body {
+            background-image: url('/images/Space_background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile {
+            display: inline-block;
+            vertical-align: center;
+            text-align: center;
+            font-size:40px; 
+            margin: 50px ;
+            color: white;
+            
+        }
+        .profile a {
+            color: white; /* Set link color to white */
+        }
+        .navbar {
+            background-color: transparent !important;
+            border: none; 
+        }
+        
+        .navbar-nav .nav-link {
+            font-size: 24px;
+            color: white !important;
+            padding: 10px 15px; /* Add padding to the links */
+        }
+        
+        .navbar-toggler-icon {
+            background-color: white; /* Change color of the toggler icon */
+        }
+        
+        .navbar-nav .nav-link {
+            margin-right: 40px; /* Adjust this value to increase or decrease spacing */
+        }
+  
+        h2 {
+            font-family: 'Futura', 'Century Gothic', Arial, sans-serif;
+            font-size: 70px;
+        }
+        
+        p{
+            font-size: 25px;
+            font-family: 'Josefin Sans', sans-serif;
+        }

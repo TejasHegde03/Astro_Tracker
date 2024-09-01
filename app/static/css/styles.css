@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/Space_background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.earth-container {
+    display: flex;
+    text-align: right; /* Earth on the right */
+    align-items: center;
+    height: 100vh;
+}
+
+.earth {
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    border-radius: 50%;
+    background-color: #2b2b2b;
+    margin-right: 20px; /* Add margin from the right side */
+}
+
+.logo-header {
+    text-align: center; 
+    padding: 0%;
+    left : 70%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align buttons to the left */
+    padding-right: 300px; /* Add padding for spacing */
+}
+
+.rounded-button {
+    padding: 15px 30px;
+    font-size: 30px;
+    margin-bottom: 25px; /* Add margin to separate buttons */
+    border-radius: 20px;
+    background-color: #234edd;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.rounded-button:hover {
+    background-color: white;
+    color: #234edd;
+    transform: scale(1.05);
+}
+
+.navbar {
+    background-color: transparent !important;
+    border: none; 
+}
+
+.navbar-nav .nav-link {
+    font-size: 24px;
+    color: white !important;
+    padding: 10px 15px; 
+}
+
+.navbar-toggler-icon {
+    background-color: white; }
+
+.navbar-nav .nav-link {
+    margin-right: 40px; 
+}
+summary {
+    padding: 15px 30px;
+    font-size: 30px;
+    border-radius: 20px;
+    background-color: #234edd;
+    color: white;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    max-width: 200px;
+    left: 76.5%; 
+    bottom: 200px; 
+    position: absolute;
+    z-index: 999; 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Orbitron', sans-serif;
+}
+
+
+summary:hover {
+    background-color: white;
+    color: #234edd; 
+    transform: scale(1.05);
+}
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    position: relative;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  input[type="submit"],
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 18px;
+    width: 100%;
+  }
+  
+  input[type="submit"],
+  button {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .satellite-list ul {
+    font-family: Arial, sans-serif; /* Change font family as needed */
+    font-size: 24px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height as needed */
+    list-style-type:none ;
+    padding: 25px;
+    margin: 15px ; /* Center the list */
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; 
+    justify-content: space-between; /* Distribute items evenly */
+
+}
+
+.satellite-list li {
+    margin-bottom: 10px; 
+    background-color: #5c5757; 
+    border-radius: 5px; 
+    padding: 10px; 
+}
+
+.satellite-list li:hover {
+    background-color: #1b1a1a; /* Background color on hover */
+}
+
+
+

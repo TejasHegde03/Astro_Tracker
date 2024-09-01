@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">     
+    <title>Astronomy Picture of the Day</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles5.css') }}">
+</head>
+<body>    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/images/AStro.png" width="90" height="90" class="d-inline-block align-top" alt="logo" onclick="window.location.href='/'">   
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/'">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/satellite-info/'">Satellite Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/login/'">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/about_us'">About us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="overlay"></div>
+    <h1>ASTRONOMY PICTURE OF THE DAY</h1>
+
+    <div id="apod-data">
+        <img class= "image" id="apod-image" src="" alt="Astronomy Picture of the Day">
+        <a id="apod-title"></a>
+        <p id="apod-explanation"></p>
+    </div>
+
+    <script>
+        
+        fetch('https://api.nasa.gov/planetary/apod?api_key=6d72lAiwfNYkLgagiAPn3aMh4bzswWyr0D9jbcid')
+            .then(response => response.json())
+            .then(data => {
+                // Display APOD image
+                document.getElementById('apod-image').src = data.url;
+
+                // Display APOD title
+                document.getElementById('apod-title').textContent = data.title;
+
+                // Display APOD explanation
+                document.getElementById('apod-explanation').textContent = data.explanation;
+            })
+            .catch(error => {
+                console.error('Error fetching Astronomy Picture of the Day data:', error);
+            });
+    </script>
+</body>
+</html>
